@@ -8,3 +8,7 @@ router.get(
     "/users",usercontroller.getallusers
 );
 module.exports= router;
+router.post(
+    "/users",usercontroller.createuser
+);
+router.post("/register",usercontroller.createuser);
