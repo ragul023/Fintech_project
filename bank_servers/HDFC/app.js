@@ -9,8 +9,10 @@ app.get("/", (req, res) => {
     res.send("HDFC Mock Server Running");
 });
 const userroutes = require("./routes/userroutes");
+const transaction = require("../hdfc/routes/transaction.routes.js")
 app.use(express.json());
 app.use("/api",userroutes);
+app.use("/api",transaction);
 
 const PORT = 5000;
 
