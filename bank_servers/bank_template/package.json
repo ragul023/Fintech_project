@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server":"nodemon app.js",
-    "start": "node app.js"
+    "hdfc": "dotenv -e ../config_env/hdfc.env -- node app.js",
+    "sbi": "dotenv -e ../config_env/sbi.env -- node app.js",
+    "icici": "dotenv -e ../config_env/icici.env -- node app.js"    
   },
   "keywords": [],
   "author": "",
@@ -19,5 +20,7 @@
     "express": "^5.2.1",
     "pg": "^8.21.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0"
+  }
 }
