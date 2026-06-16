@@ -8,7 +8,8 @@ const ValidateAccount = async (acc_num) => {
     )
 
     return {
-        success: result.rows[0].exists
+        success: result.rows[0].exists,
+        
     }
 }
 
@@ -36,7 +37,24 @@ const ValidatePin = async (pin, acc_num) => {
     }
 }
 
+const ValidateAccountUpi = async(payer_vpa)=>{
+    const result = await db.query(
+        `select ac.*
+        from accounts ac
+        inner join upi_map up 
+        on ac.acc_number = up.acc_num
+        where up.upi_vpa = $1`,[payer_vpa]
+    )
+        return {
+        success: result.rows.length > 0,
+        data: result.rows[0] || null
+    };
+    
+
+}
+
 module.exports = {
     ValidateAccount,
-    ValidatePin
+    ValidatePin,
+    ValidateAccountUpi
 }

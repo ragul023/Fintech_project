@@ -56,6 +56,23 @@ const createTransaction = async (req, res) => {
   }
 };
 
+const createUpiTransaction = async(req,res)=>{
+
+  const {payer_vpa,payee_vpa,amount,upi_pin}=req.body;
+  if(
+    !payee_vpa||
+    !payee_vpa||
+    !amount
+  ){
+    res.status(401).json({msg:"All fields Required"})
+  }
+  const validUser = await UserValidationService.ValidateAccountUpi(payer_vpa)
+  if(validUser.success){
+      const valid_pin = await UserValidationService.ValidatePin(validUser.data.upi_pin)
+  }
+
+}
+
 module.exports = {
   createTransaction,
 };

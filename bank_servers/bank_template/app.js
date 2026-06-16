@@ -9,9 +9,7 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("HDFC Mock Server Running");
-});
+
 const userroutes = require("./routes/userroutes");
 const transaction = require("./routes/transaction.routes")
 app.use(express.json());
