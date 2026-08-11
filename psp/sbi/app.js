@@ -4,12 +4,27 @@ const port = process.env.PORT || 3003;
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.json({ bank: "SBI", status: "ok" });
+app.get("/health", (req, res) => {
+  res.json({ service: "SBI PSP", status: "ok" });
 });
 
 app.post("/upi", (req, res) => {
-  res.json({ bank: "SBI", received: true, payload: req.body });
+  const { payer_vpa, payee_vpa, amount, upi_pin } = req.body;
+  if (!payer_vpa || !payee_vpa || !amount || !upi_pin) {
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "payer_vpa, payee_vpa, amount and upi_pin are required",
+      });
+  }
+
+  return res.json({
+    success: true,
+    bank: "SBI",
+    received: true,
+    payload: { payer_vpa, payee_vpa, amount },
+  });
 });
 
 app.listen(port, () => console.log(`SBI PSP listening on ${port}`));
